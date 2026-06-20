@@ -1,16 +1,33 @@
-
-version: '3.8'
-
 services:
   spark-connect:
     image: apache/spark:3.5.1
     container_name: spark-connect-server
-    user: root  # <-- Garante permissão para o download do pacote Connect
+    user: root
     ports:
       - "15002:15002"
       - "4040:4040"
-    # Roda o servidor diretamente em primeiro plano
+    environment:
+      - SPARK_CONNECT_EXTENSIONS=org.apache.spark.sql.connect.service.SparkConnectServer
+    # Agora incluímos o driver do MySQL junto com o pacote do Spark Connect
     command: >
       /opt/spark/bin/spark-submit 
       --class org.apache.spark.sql.connect.service.SparkConnectServer 
-      --packages org.apache.spark:spark-connect_2.12:3.5.1
+      --packages org.apache.spark:spark-connect_2.12:3.5.1,mysql:mysql-connector-java:8.0.33
+    depends_on:
+      - mysql-db
+
+  mysql-db:
+    image: mysql:8.0
+    container_name: mysql-server
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:

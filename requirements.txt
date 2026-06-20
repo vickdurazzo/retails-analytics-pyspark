@@ -1,0 +1,4 @@
+# Instale localmente para rodar o main.py na sua máquina
+# conectando ao Spark que roda dentro do Docker
+
+pyspark[connect]==3.5.1

@@ -98,7 +98,7 @@ silver_df = silver_df.withColumn(
     .write
     .mode("overwrite")
     .partitionBy("order_date")
-    .parquet("/opt/spark-data/bronze/retail_sales_silver.parquet")
+    .parquet("/opt/spark-data/silver/retail_sales_silver.parquet")
 )
 
 print("✅ Silver layer created successfully")

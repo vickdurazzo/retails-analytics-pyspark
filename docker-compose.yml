@@ -8,6 +8,8 @@ services:
       - "4040:4040"
     environment:
       - SPARK_CONNECT_EXTENSIONS=org.apache.spark.sql.connect.service.SparkConnectServer
+    volumes:
+      - ./data:/opt/spark/work-dir/data
     # Agora incluímos o driver do MySQL junto com o pacote do Spark Connect
     command: >
       /opt/spark/bin/spark-submit 

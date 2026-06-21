@@ -2,6 +2,8 @@
 
 Um pipeline ETL completo desenvolvido com PySpark e Spark Connect para processamento de dados de vendas em camadas (Bronze, Silver e Gold).
 
+![alt text](image.png)
+
 ## 📋 Arquitetura do Projeto
 
 O projeto segue o padrão **Medallion Architecture** (Medallion Lakehouse):
